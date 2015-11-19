@@ -285,8 +285,8 @@ public class MainActivity extends ActionBarActivity  implements BoxAuthenticatio
         mVideoUri = null;
 
         BoxConfig.IS_LOG_ENABLED = true;
-        BoxConfig.CLIENT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-        BoxConfig.CLIENT_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        BoxConfig.CLIENT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxx";
+        BoxConfig.CLIENT_SECRET = "xxxxxxxxxxxxxxxxxxxxxxx";
         initialize();
 
         ImageButton picBtn = (ImageButton) findViewById(R.id.camera_button);
@@ -432,31 +432,18 @@ public class MainActivity extends ActionBarActivity  implements BoxAuthenticatio
             public void run() {
                 try {
                     Log.e("mya", "uploadFile: entered try");
-                    FileInputStream uploadStream = new FileInputStream(image_name);
-                    //InputStream uploadStream = getResources().getAssets().open(uploadFileName);
-                    String destinationFolderId = "0";
-                    String uploadName = "BoxSDKUpload.jpg";
-
+                    BoxApiFile fileApi = new BoxApiFile(mSession);
+                    Log.e("mya", "uploadFile: tied into session");
+                    BoxFile uploadedFile = fileApi.getUploadRequest(image_name, "0").send();
+                    Log.e("mya", "uploadFile: performed upload request");
                     //BoxRequestsFile.UploadFile request = mFileApi.getUploadRequest(uploadStream, uploadName, destinationFolderId);
-                    BoxRequestsFile.UploadFile request = mFileApi.getUploadRequest(image_name, "0");
-                    final BoxFile uploadFileInfo = request.send();
-                    showToast("Uploaded " + uploadFileInfo.getName());
                     loadRootFolder();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (BoxException e) {
+                    Log.e("mya", "uploadFile: entered Box Exception");
                     e.printStackTrace();
                     BoxError error = e.getAsBoxError();
-                    if (error != null && error.getStatus() == HttpStatus.SC_CONFLICT) {
-                        ArrayList<BoxEntity> conflicts = error.getContextInfo().getConflicts();
-                        if (conflicts != null && conflicts.size() == 1 && conflicts.get(0) instanceof BoxFile) {
-                            //uploadNewVersion((BoxFile) conflicts.get(0));
-                            return;
-                        }
-                    }
+
                     showToast("Upload failed");
-                } finally {
-                    mDialog.dismiss();
                 }
             }
         }.start();

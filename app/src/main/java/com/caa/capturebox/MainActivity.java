@@ -285,8 +285,8 @@ public class MainActivity extends ActionBarActivity  implements BoxAuthenticatio
         mVideoUri = null;
 
         BoxConfig.IS_LOG_ENABLED = true;
-        BoxConfig.CLIENT_ID = "rcmvb9bw8f2roh38akmyr7x7w58fh2qs";
-        BoxConfig.CLIENT_SECRET = "hbkwxUEyhS9cla3ICpBynagVmOWSXPZQ";
+        BoxConfig.CLIENT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        BoxConfig.CLIENT_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
         initialize();
 
         ImageButton picBtn = (ImageButton) findViewById(R.id.camera_button);

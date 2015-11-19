@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CaptureBox</string>
+    <string name="action_login">Login</string>
+    <string name="action_logout">LogOut</string>
+    <string name="action_settings">Settings</string>
+    <string name="exit">Exit</string>
+    <string name="cannot">Cannot</string>
+    <string name="album_name">CaptureBox</string>
+</resources>
